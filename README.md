@@ -23,12 +23,12 @@ Thanks to all [contributors](https://github.com/meysamhadeli/University-Microser
 
 ## 1. The Goals of This Project
 
-- the **microservices** with **DDD** implementation.
-- correct separation of bounded contexts.
-- example of communications between bounded contexts through asynchronous **rabbitMq**.
-- example of simple **CQRS** implementation and **event driven architecture**.
-- using **outbox pattern** for message passing between modules.
-- using **best practice** and **design patterns**.
+- The **microservices** with **DDD** implementation.
+- Correct separation of bounded contexts.
+- Example of communications between bounded contexts through asynchronous **rabbitMq**.
+- Example of simple **CQRS** implementation and **event driven architecture**.
+- Using **outbox pattern** for message passing between modules.
+- Using **best practice** and **design patterns**.
 
 ## 2. Plan
 > This project is currently under development.
