@@ -44,8 +44,8 @@ High-level plan is represented in the table
 | Departments Service | Completed ✔️ |
 | Instructors Service | Completed ✔️ |
 | Students Service | Completed ✔️ |
+| Identity Server | Completed ✔️ |
 | API Gateway | Under Development 👷‍♂️ |
-| Identity Server | Not Started 🚩 |
 
 
 ## 3. Technologies - Libraries
