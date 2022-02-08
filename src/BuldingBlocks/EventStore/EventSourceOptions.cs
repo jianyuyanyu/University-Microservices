@@ -1,7 +1,6 @@
-﻿namespace BuildingBlocks.EventStore
+﻿namespace BuildingBlocks.EventStore;
+
+public class EventSourceOptions
 {
-    public class EventSourceOptions
-    {
-        public string ConnectionString { get; set; }
-    }
+    public string ConnectionString { get; set; }
 }

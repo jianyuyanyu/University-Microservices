@@ -1,9 +1,8 @@
 using BuildingBlocks.Types;
 
-namespace BuildingBlocks.CQRS.Commands
+namespace BuildingBlocks.CQRS.Commands;
+
+//Marker
+public interface ICommand : IMessage
 {
-    //Marker
-    public interface ICommand : IMessage
-    {
-    }
 }

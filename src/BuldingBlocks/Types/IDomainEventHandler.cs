@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace BuildingBlocks.Types
+namespace BuildingBlocks.Types;
+
+public interface IDomainEventHandler<in T> where T : class
 {
-    public interface IDomainEventHandler<in T> where T : class
-    {
-        Task HandleAsync(T @event);
-    }
+    Task HandleAsync(T @event);
 }

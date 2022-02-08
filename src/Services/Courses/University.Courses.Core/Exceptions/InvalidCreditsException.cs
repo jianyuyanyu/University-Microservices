@@ -1,9 +1,8 @@
-﻿namespace University.Courses.Core.Exceptions
+﻿namespace University.Courses.Core.Exceptions;
+
+public class InvalidCreditsException : DomainException
 {
-    public class InvalidCreditsException : DomainException
+    public InvalidCreditsException() : base("credits must be greater than 0!")
     {
-        public InvalidCreditsException() : base("credits must be greater than 0!")
-        {
-        }
     }
 }

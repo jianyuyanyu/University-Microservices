@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using BuildingBlocks.CQRS.Queries;
 using DotNetCore.CAP;
 using DotNetCore.CAP.Messages;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,8 @@ namespace BuildingBlocks.CAP;
 
 public static class Extensions
 {
-    public static IServiceCollection AddCustomCap<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
+    public static IServiceCollection AddCustomCap<TDbContext>(this IServiceCollection services)
+        where TDbContext : DbContext
     {
         var rabbitMqOptions = services.GetOptions<RabbitMQOptions>("RabbitMq");
 
@@ -37,13 +37,13 @@ public static class Extensions
             };
             x.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
         });
-        
-        services.AddOpenTelemetryTracing((builder) => builder
+
+        services.AddOpenTelemetryTracing(builder => builder
             .AddAspNetCoreInstrumentation()
             .AddCapInstrumentation()
             .AddZipkinExporter()
         );
-        
+
         services.Scan(s =>
             s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
                 .AddClasses(c => c.AssignableTo(typeof(ICapSubscribe)))

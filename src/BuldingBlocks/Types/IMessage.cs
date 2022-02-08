@@ -1,8 +1,7 @@
 //Marker
 
-namespace BuildingBlocks.Types
+namespace BuildingBlocks.Types;
+
+public interface IMessage
 {
-    public interface IMessage
-    {
-    }
 }

@@ -1,9 +1,8 @@
 using BuildingBlocks.Types;
 
-namespace BuildingBlocks.CQRS.Events
+namespace BuildingBlocks.CQRS.Events;
+
+//Marker
+public interface IEvent : IMessage
 {
-    //Marker
-    public interface IEvent : IMessage
-    {
-    }
 }

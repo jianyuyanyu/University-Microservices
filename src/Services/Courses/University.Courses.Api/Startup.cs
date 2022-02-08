@@ -10,58 +10,57 @@ using Microsoft.OpenApi.Models;
 using University.Courses.Application;
 using University.Courses.Infrastructure;
 
-namespace University.Courses.Api
+namespace University.Courses.Api;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers().AddNewtonsoftJson();
+
+        services.AddFluentValidation(x => { x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly); });
+        services.AddApplication()
+            .AddInfrastructure();
+
+        // For Testing Subscriber
+        services.Scan(s =>
+            s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+                .AddClasses(c => c.AssignableTo(typeof(ICapSubscribe)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+
+        services.AddSwaggerGen(c =>
         {
-            Configuration = configuration;
+            c.SwaggerDoc("v1", new OpenApiInfo {Title = "University.Courses.Api", Version = "v1"});
+        });
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "University.Courses.Api v1"));
         }
 
-        public IConfiguration Configuration { get; }
+        app.UseInfrastructure();
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers().AddNewtonsoftJson();
+        app.UseHttpsRedirection();
 
-            services.AddFluentValidation(x => { x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly); });
-            services.AddApplication()
-                .AddInfrastructure();
+        app.UseRouting();
 
-            // For Testing Subscriber
-            services.Scan(s =>
-                s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
-                    .AddClasses(c => c.AssignableTo(typeof(ICapSubscribe)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime());
-            
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "University.Courses.Api", Version = "v1"});
-            });
-        }
+        app.UseAuthorization();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "University.Courses.Api v1"));
-            }
-
-            app.UseInfrastructure();
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

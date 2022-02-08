@@ -1,9 +1,8 @@
 using System;
 
-namespace BuildingBlocks.Types
+namespace BuildingBlocks.Types;
+
+// Marker
+public class DecoratorAttribute : Attribute
 {
-    // Marker
-    public class DecoratorAttribute : Attribute
-    {
-    }
 }

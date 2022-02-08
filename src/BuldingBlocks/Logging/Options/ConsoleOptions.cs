@@ -1,7 +1,6 @@
-namespace BuildingBlocks.Logging.Options
+namespace BuildingBlocks.Logging.Options;
+
+public class ConsoleOptions
 {
-    public class ConsoleOptions
-    {
-        public bool Enabled { get; set; }
-    }
+    public bool Enabled { get; set; }
 }

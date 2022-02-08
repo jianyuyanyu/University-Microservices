@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace BuildingBlocks.CQRS.Events
+namespace BuildingBlocks.CQRS.Events;
+
+public interface IEventHandler<in TEvent> where TEvent : IEvent
 {
-    public interface IEventHandler<in TEvent> where TEvent : IEvent
-    {
-        Task HandleAsync(TEvent @event);
-    }
+    Task HandleAsync(TEvent @event);
 }

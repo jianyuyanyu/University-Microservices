@@ -8,50 +8,49 @@ using Microsoft.Extensions.Logging;
 using University.Instructors.Application.Services;
 using University.Instructors.Infrastructure.EfCore;
 
-namespace University.Instructors.Infrastructure.Services
+namespace University.Instructors.Infrastructure.Services;
+
+public class MessageBroker : IMessageBroker
 {
-    public class MessageBroker : IMessageBroker
+    private readonly ICapPublisher _capPublisher;
+    private readonly ILogger<MessageBroker> _logger;
+    private readonly Options.OutboxOptions _outbox;
+    private readonly InstructorDbContext _studentDbContext;
+
+
+    public MessageBroker(ICapPublisher capPublisher, ILogger<MessageBroker> logger,
+        InstructorDbContext studentDbContext, Options.OutboxOptions outbox)
     {
-        private readonly ICapPublisher _capPublisher;
-        private readonly ILogger<MessageBroker> _logger;
-        private readonly Options.OutboxOptions _outbox;
-        private readonly InstructorDbContext _studentDbContext;
+        _capPublisher = capPublisher;
+        _logger = logger;
+        _studentDbContext = studentDbContext;
+        _outbox = outbox;
+    }
 
+    public Task PublishAsync(params IEvent[] events)
+    {
+        return PublishAsync(events?.AsEnumerable());
+    }
 
-        public MessageBroker(ICapPublisher capPublisher, ILogger<MessageBroker> logger,
-            InstructorDbContext studentDbContext, Options.OutboxOptions outbox)
+    public async Task PublishAsync(IEnumerable<IEvent> events)
+    {
+        if (events is null) return;
+
+        foreach (var @event in events)
         {
-            _capPublisher = capPublisher;
-            _logger = logger;
-            _studentDbContext = studentDbContext;
-            _outbox = outbox;
-        }
+            if (@event is null) continue;
 
-        public Task PublishAsync(params IEvent[] events)
-        {
-            return PublishAsync(events?.AsEnumerable());
-        }
-
-        public async Task PublishAsync(IEnumerable<IEvent> events)
-        {
-            if (events is null) return;
-
-            foreach (var @event in events)
+            if (_outbox.Enabled)
             {
-                if (@event is null) continue;
-
-                if (_outbox.Enabled)
+                using (var trans = _studentDbContext.Database.BeginTransaction(_capPublisher, true))
                 {
-                    using (var trans = _studentDbContext.Database.BeginTransaction(_capPublisher, true))
-                    {
-                        await _capPublisher.PublishAsync(@event.GetType().Name, @event);
-                    }
-
-                    continue;
+                    await _capPublisher.PublishAsync(@event.GetType().Name, @event);
                 }
 
-                await _capPublisher.PublishAsync(@event.GetType().Name, @event);
+                continue;
             }
+
+            await _capPublisher.PublishAsync(@event.GetType().Name, @event);
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace BuildingBlocks.Types
+namespace BuildingBlocks.Types;
+
+public interface IAggregateRoot<out TKey> : IIdentifiable<TKey>
 {
-    public interface IAggregateRoot<out TKey> : IIdentifiable<TKey>
-    {
-        IEnumerable<IDomainEvent> Events { get; }
-        void ClearEvents();
-    }
+    IEnumerable<IDomainEvent> Events { get; }
+    void ClearEvents();
 }

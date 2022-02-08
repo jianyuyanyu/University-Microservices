@@ -1,7 +1,6 @@
-﻿namespace BuildingBlocks.Types
+﻿namespace BuildingBlocks.Types;
+
+public interface IIdentifiable<out TKey>
 {
-    public interface IIdentifiable<out TKey>
-    {
-        TKey Id { get; }
-    }
+    TKey Id { get; }
 }

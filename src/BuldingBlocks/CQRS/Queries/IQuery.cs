@@ -1,11 +1,10 @@
-﻿namespace BuildingBlocks.CQRS.Queries
-{
-    //Marker
-    public interface IQuery
-    {
-    }
+﻿namespace BuildingBlocks.CQRS.Queries;
 
-    public interface IQuery<T> : IQuery
-    {
-    }
+//Marker
+public interface IQuery
+{
+}
+
+public interface IQuery<T> : IQuery
+{
 }

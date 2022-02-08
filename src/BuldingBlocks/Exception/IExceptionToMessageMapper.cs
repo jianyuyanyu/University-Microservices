@@ -1,9 +1,8 @@
 ﻿using BuildingBlocks.CQRS.Events;
 
-namespace BuildingBlocks.Exception
+namespace BuildingBlocks.Exception;
+
+public interface IExceptionToMessageMapper
 {
-    public interface IExceptionToMessageMapper
-    {
-        IRejectedEvent Map(System.Exception exception, object message);
-    }
+    IRejectedEvent Map(System.Exception exception, object message);
 }

@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace BuildingBlocks.CQRS.Commands
+namespace BuildingBlocks.CQRS.Commands;
+
+public interface ICommandDispatcher
 {
-    public interface ICommandDispatcher
-    {
-        Task SendAsync<T>(T command) where T : class, ICommand;
-    }
+    Task SendAsync<T>(T command) where T : class, ICommand;
 }

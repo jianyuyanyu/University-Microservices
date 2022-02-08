@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using EventStore.ClientAPI;
 
-namespace BuildingBlocks.EventStore
+namespace BuildingBlocks.EventStore;
+
+public interface IEventStoreConnectionWrapper
 {
-    public interface IEventStoreConnectionWrapper
-    {
-        Task<IEventStoreConnection> GetConnectionAsync();
-    }
+    Task<IEventStoreConnection> GetConnectionAsync();
 }

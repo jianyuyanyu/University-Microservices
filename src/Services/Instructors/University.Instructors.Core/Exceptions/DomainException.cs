@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace University.Instructors.Core.Exceptions
+namespace University.Instructors.Core.Exceptions;
+
+public abstract class DomainException : Exception
 {
-    public abstract class DomainException : Exception
+    protected DomainException(string message) : base(message)
     {
-        protected DomainException(string message) : base(message)
-        {
-        }
     }
 }

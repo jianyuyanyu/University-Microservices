@@ -1,9 +1,8 @@
-﻿namespace University.Courses.Core.Exceptions
+﻿namespace University.Courses.Core.Exceptions;
+
+public class InvalidDepartmentIdException : DomainException
 {
-    public class InvalidDepartmentIdException : DomainException
+    public InvalidDepartmentIdException() : base("departmentId not be null")
     {
-        public InvalidDepartmentIdException() : base("departmentId not be null")
-        {
-        }
     }
 }

@@ -3,13 +3,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using University.Courses.Core.Entities;
 
-namespace University.Courses.Application
+namespace University.Courses.Application;
+
+public interface ICourseDbContext
 {
-    public interface ICourseDbContext
-    {
-        DbSet<Course> Courses { get;}
-        Task BeginTransactionAsync(CancellationToken cancellationToken);
-        Task CommitTransactionAsync(CancellationToken cancellationToken);
-        Task RollbackTransactionAsync(CancellationToken cancellationToken);
-    }
+    DbSet<Course> Courses { get; }
+    Task BeginTransactionAsync(CancellationToken cancellationToken);
+    Task CommitTransactionAsync(CancellationToken cancellationToken);
+    Task RollbackTransactionAsync(CancellationToken cancellationToken);
 }

@@ -4,29 +4,28 @@ using BuildingBlocks.CQRS.Commands;
 using University.Instructors.Application.Services;
 using University.Instructors.Core.Entities;
 
-namespace University.Instructors.Application.Commands.Handlers
+namespace University.Instructors.Application.Commands.Handlers;
+
+public class AddCourseAssignmentCommandHandler : ICommandHandler<AddCourseAssignmentCommand>
 {
-    public class AddCourseAssignmentCommandHandler : ICommandHandler<AddCourseAssignmentCommand>
+    private readonly IEventProcessor _eventProcessor;
+    private readonly IInstructorDbContext _instructorDbContext;
+
+    public AddCourseAssignmentCommandHandler(IInstructorDbContext instructorDbContext,
+        IEventProcessor eventProcessor)
     {
-        private readonly IEventProcessor _eventProcessor;
-        private readonly IInstructorDbContext _instructorDbContext;
+        _instructorDbContext = instructorDbContext;
+        _eventProcessor = eventProcessor;
+    }
 
-        public AddCourseAssignmentCommandHandler(IInstructorDbContext instructorDbContext,
-            IEventProcessor eventProcessor)
-        {
-            _instructorDbContext = instructorDbContext;
-            _eventProcessor = eventProcessor;
-        }
+    public async Task HandleAsync(AddCourseAssignmentCommand command, CancellationToken token)
+    {
+        var courseAssignment = CourseAssignment.CreateNew(command.InstructorId, command.CourseId);
 
-        public async Task HandleAsync(AddCourseAssignmentCommand command, CancellationToken token)
-        {
-            var courseAssignment = CourseAssignment.CreateNew(command.InstructorId, command.CourseId);
+        await _instructorDbContext.CourseAssignments.AddAsync(courseAssignment, token);
 
-            await _instructorDbContext.CourseAssignments.AddAsync(courseAssignment, token);
+        await _eventProcessor.ProcessAsync(courseAssignment.Events);
 
-            await _eventProcessor.ProcessAsync(courseAssignment.Events);
-
-            await _instructorDbContext.CommitTransactionAsync(token);
-        }
+        await _instructorDbContext.CommitTransactionAsync(token);
     }
 }

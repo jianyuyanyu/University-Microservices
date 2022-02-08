@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace University.Courses.Application.Exceptions
+namespace University.Courses.Application.Exceptions;
+
+public abstract class AppException : Exception
 {
-    public abstract class AppException : Exception
+    protected AppException(string message) : base(message)
     {
-        protected AppException(string message) : base(message)
-        {
-        }
     }
 }

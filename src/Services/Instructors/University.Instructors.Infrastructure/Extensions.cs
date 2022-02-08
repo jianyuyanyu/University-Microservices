@@ -8,51 +8,50 @@ using University.Instructors.Application.Services;
 using University.Instructors.Infrastructure.EfCore;
 using University.Instructors.Infrastructure.Services;
 
-namespace University.Instructors.Infrastructure
+namespace University.Instructors.Infrastructure;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
+        var connectionString = configuration!.GetSection("connectionString").Value;
+
+        services.AddDbContext<InstructorDbContext>(options =>
+            options.UseSqlServer(connectionString));
+
+
+        var outboxOptions = services.GetOptions<Options.OutboxOptions>("outbox");
+        services.AddSingleton(outboxOptions);
+
+        services.AddTransient(provider => provider.GetService<InstructorDbContext>());
+
+        services.AddDbContext<InstructorDbContext>();
+
+        services.AddTransient<IMessageBroker, MessageBroker>();
+        services.AddTransient<IEventMapper, EventMapper>();
+        services.AddTransient<IEventProcessor, EventProcessor>();
+
+        services.AddCap(x =>
         {
-            var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
-            var connectionString = configuration!.GetSection("connectionString").Value;
+            x.UseEntityFramework<InstructorDbContext>();
 
-            services.AddDbContext<InstructorDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            x.UseSqlServer(connectionString);
 
-
-            var outboxOptions = services.GetOptions<Options.OutboxOptions>("outbox");
-            services.AddSingleton(outboxOptions);
-
-            services.AddTransient(provider => provider.GetService<InstructorDbContext>());
-
-            services.AddDbContext<InstructorDbContext>();
-
-            services.AddTransient<IMessageBroker, MessageBroker>();
-            services.AddTransient<IEventMapper, EventMapper>();
-            services.AddTransient<IEventProcessor, EventProcessor>();
-
-            services.AddCap(x =>
+            x.UseRabbitMQ(r =>
             {
-                x.UseEntityFramework<InstructorDbContext>();
-
-                x.UseSqlServer(connectionString);
-
-                x.UseRabbitMQ(r =>
-                {
-                    r.HostName = "localhost";
-                    r.ExchangeName = "instructors";
-                });
-
-                x.FailedRetryCount = 5;
+                r.HostName = "localhost";
+                r.ExchangeName = "instructors";
             });
 
-            return services;
-        }
+            x.FailedRetryCount = 5;
+        });
 
-        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-        {
-            return app;
-        }
+        return services;
+    }
+
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+    {
+        return app;
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace BuildingBlocks.Exception
+﻿namespace BuildingBlocks.Exception;
+
+public interface IExceptionToResponseMapper
 {
-    public interface IExceptionToResponseMapper
-    {
-        public ExceptionResponse Map(System.Exception exception);
-    }
+    public ExceptionResponse Map(System.Exception exception);
 }

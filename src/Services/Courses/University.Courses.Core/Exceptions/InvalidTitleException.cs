@@ -1,9 +1,8 @@
-﻿namespace University.Courses.Core.Exceptions
+﻿namespace University.Courses.Core.Exceptions;
+
+public class InvalidTitleException : DomainException
 {
-    public class InvalidTitleException : DomainException
+    public InvalidTitleException() : base("title not be empty!")
     {
-        public InvalidTitleException() : base("title not be empty!")
-        {
-        }
     }
 }

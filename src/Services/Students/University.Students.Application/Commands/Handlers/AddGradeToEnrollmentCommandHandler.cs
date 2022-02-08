@@ -4,32 +4,31 @@ using System.Threading.Tasks;
 using BuildingBlocks.CQRS.Commands;
 using University.Students.Application.Services;
 
-namespace University.Students.Application.Commands.Handlers
+namespace University.Students.Application.Commands.Handlers;
+
+public class AddGradeToEnrollmentCommandHandler : ICommandHandler<AddGradeToEnrollmentCommand>
 {
-    public class AddGradeToEnrollmentCommandHandler : ICommandHandler<AddGradeToEnrollmentCommand>
+    private readonly IEventProcessor _eventProcessor;
+    private readonly IStudentDbContext _studentDbContext;
+
+    public AddGradeToEnrollmentCommandHandler(IStudentDbContext studentDbContext, IEventProcessor eventProcessor)
     {
-        private readonly IEventProcessor _eventProcessor;
-        private readonly IStudentDbContext _studentDbContext;
+        _studentDbContext = studentDbContext;
+        _eventProcessor = eventProcessor;
+    }
 
-        public AddGradeToEnrollmentCommandHandler(IStudentDbContext studentDbContext, IEventProcessor eventProcessor)
-        {
-            _studentDbContext = studentDbContext;
-            _eventProcessor = eventProcessor;
-        }
+    public async Task HandleAsync(AddGradeToEnrollmentCommand command, CancellationToken token)
+    {
+        var enrollment = await _studentDbContext.Enrollments.FindAsync(command.EnrollmentId);
 
-        public async Task HandleAsync(AddGradeToEnrollmentCommand command, CancellationToken token)
-        {
-            var enrollment = await _studentDbContext.Enrollments.FindAsync(command.EnrollmentId);
+        if (enrollment == null) throw new Exception("enrollment must exist.");
 
-            if (enrollment == null) throw new Exception("enrollment must exist.");
+        enrollment.AddGrade(command.Grade);
 
-            enrollment.AddGrade(command.Grade);
+        _studentDbContext.Enrollments.Update(enrollment);
 
-            _studentDbContext.Enrollments.Update(enrollment);
+        await _eventProcessor.ProcessAsync(enrollment.Events);
 
-            await _eventProcessor.ProcessAsync(enrollment.Events);
-
-            await _studentDbContext.CommitTransactionAsync(token);
-        }
+        await _studentDbContext.CommitTransactionAsync(token);
     }
 }
