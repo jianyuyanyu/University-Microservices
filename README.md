@@ -23,12 +23,12 @@ Thanks to all [contributors](https://github.com/meysamhadeli/University-Microser
 
 ## 1. The Goals of This Project
 
-- the **microservices** with **DDD** implementation.
-- correct separation of bounded contexts.
-- example of communications between bounded contexts through asynchronous **rabbitMq**.
-- example of simple **CQRS** implementation and **event driven architecture**.
-- using **outbox pattern** for message passing between modules.
-- using **best practice** and **design patterns**.
+- The **microservices** with **DDD** implementation.
+- Correct separation of bounded contexts.
+- Example of communications between bounded contexts through asynchronous **rabbitMq**.
+- Example of simple **CQRS** implementation and **event driven architecture**.
+- Using **outbox pattern** for message passing between modules.
+- Using **best practice** and **design patterns**.
 
 ## 2. Plan
 > This project is currently under development.
@@ -44,12 +44,12 @@ High-level plan is represented in the table
 | Departments Service | Completed ✔️ |
 | Instructors Service | Completed ✔️ |
 | Students Service | Completed ✔️ |
+| Identity Service | Completed ✔️ |
 | API Gateway | Under Development 👷‍♂️ |
-| Identity Server | Not Started 🚩 |
 
 
 ## 3. Technologies - Libraries
-- ✔️ **[`.NET 5`](https://dotnet.microsoft.com/download)** - .NET aspnet-api-versioning)** - Set of libraries which add service API versioning to ASP.NET Web API, OData with ASP.NET Web API, and ASP.NET Core
+- ✔️ **[`.NET 6`](https://dotnet.microsoft.com/download)** - .NET aspnet-api-versioning)** - Set of libraries which add service API versioning to ASP.NET Web API, OData with ASP.NET Web API, and ASP.NET Core
 - ✔️ **[`EF Core`](https://github.com/dotnet/efcore)** - Modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations
 - ✔️ **[`CAP`](https://github.com/dotnetcore/CAP)** - An EventBus with local persistent message functionality for system integration in SOA or Microservice architecture
 - ✔️ **[`FluentValidation`](https://github.com/FluentValidation/FluentValidation)** - Popular .NET validation library for building strongly-typed validation rules
@@ -58,7 +58,6 @@ High-level plan is represented in the table
 Framework 4.5 and higher, which is simple and customisable
 - ✔️ **[`Scrutor`](https://github.com/khellang/Scrutor)** - Assembly scanning and decoration extensions for Microsoft.Extensions.DependencyInjection
 - ✔️ **[`Opentelemetry-dotnet`](https://github.com/open-telemetry/opentelemetry-dotnet)** - The OpenTelemetry .NET Client
-- ✔️ **[`EasyCaching`](https://github.com/dotnetcore/EasyCaching)** - Open source caching library that contains basic usages and some advanced usages of caching which can help us to handle caching more easier.
 - ✔️ **[`Ocelot`](https://github.com/ThreeMammals/Ocelot)** - API Gateway created using .NET Core
 - ✔️ **[`SEQ`](https://github.com/serilog/serilog-sinks-seq)** - Seq collects data over HTTP, while your applications use the best available structured logging APIs for your platform.
 
