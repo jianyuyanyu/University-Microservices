@@ -1,58 +1,33 @@
 version: "3.7"
 
 services:
- 
-   mongo:
-    image: mongo
-    container_name: mongo
-    restart: unless-stopped
-    # environment:
-     # - MONGO_INITDB_ROOT_USERNAME=root
-     # - MONGO_INITDB_ROOT_PASSWORD=secret
-    networks:
-      - university
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo:/data/db
-
 
   rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
-    ports:
-        - 5672:5672
-        - 15672:15672
-    volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-        - university
-
-
-jaeger:
-    image: jaegertracing/all-in-one
-    container_name: jaeger
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     restart: unless-stopped
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - university
+
+  db:
+    container_name: sqldb
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: unless-stopped
     ports:
-      - 5775:5775/udp
-      - 5778:5778
-      - 6831:6831/udp
-      - 6832:6832/udp
-      - 9411:9411
-      - 14268:14268
-      - 16686:16686
-
-volumes:
-
-  mongo:
-    driver: local
-
-  # rabbitmq:
-  #   driver: local 
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "@Aa123456"
+      ACCEPT_EULA: "Y"
+    networks:
+      - university
 
 networks:
   university:
-    name: university-network
+    name: university
+
+volumes:
+  db-data:
+    external: false
