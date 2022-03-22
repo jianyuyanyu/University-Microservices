@@ -1,7 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/meysamhadeli/University-Microservices)
 # University-Microservices
-> Implementing an University application with Domain-Driven Design and CQRS in .Net Core.
+> Implementing an University microservices application with .Net Core, Docker, RabbitMQ, CAP, Grpc, Ocelot API Gateway, Redis, SqlServer, Entity Framework Core, CQRS , DDD and Clean Architecture implementation.
 
 🌀 Keep in mind this repository is work in progress and will be complete over time 🚀
 
