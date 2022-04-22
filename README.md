@@ -64,7 +64,7 @@ Framework 4.5 and higher, which is simple and customisable
 ## 4. Services Structure
 Inner each service used clean architecture but we can use also vertical slice architecture also.
 
-![](./assets/clean-architecture.png)
+![](./assets/clean-architecture.jpg)
 
 Our clean architecture in each service consists of 4 main parts:
 - **Api** - This layer responsible for hosting microservice on .net core webapi and using swagger for documentation.
