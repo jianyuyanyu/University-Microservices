@@ -4,20 +4,6 @@ Implementing a University microservices application based on different software 
 
 🌀 Keep in mind this repository is work in progress and will be complete over time 🚀
 
-# Support ⭐
-If you like my work, feel free to:
-
-- ⭐ this repository. And we will be happy together :)
-
-
-Thanks a bunch for supporting me!
-
-## Contribution
-
-Contributions are always welcome! Please take a look at the [contribution guidelines](https://github.com/meysamhadeli/University-Microservices/blob/master/contributing.md) pages first.
-
-Thanks to all [contributors](https://github.com/meysamhadeli/University-Microservices/graphs/contributors), you're awesome and wouldn't be possible without you! The goal is to build a categorized community-driven collection of very well-known resources.
-
 ## 1. The Goals of This Project
 
 - The **microservices** with **DDD** implementation.
@@ -69,6 +55,20 @@ Our clean architecture in each service consists of 4 main parts:
 - **Domain** - Domain Model in Domain-Driven Design terms implements the applicable Bounded Context
 - **Infrastructure** - This is where the implementation of secondary adapters should be. Secondary adapters are responsible for communication with the external dependencies.
 infrastructural code responsible for module initialization, background processing, data access, communication with Events Bus and other external components or systems.
+
+# Support ⭐
+If you like my work, feel free to:
+
+- ⭐ this repository. And we will be happy together :)
+
+
+Thanks a bunch for supporting me!
+
+## Contribution
+
+Contributions are always welcome! Please take a look at the [contribution guidelines](https://github.com/meysamhadeli/University-Microservices/blob/master/contributing.md) pages first.
+
+Thanks to all [contributors](https://github.com/meysamhadeli/University-Microservices/graphs/contributors), you're awesome and wouldn't be possible without you! The goal is to build a categorized community-driven collection of very well-known resources.
 
 ## Project Refrences 
 - [https://github.com/jbogard/ContosoUniversityDotNetCore-Pages](https://github.com/jbogard/ContosoUniversityDotNetCore-Pages)
