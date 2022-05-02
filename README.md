@@ -75,3 +75,4 @@ Thanks to all [contributors](https://github.com/meysamhadeli/University-Microser
 - [https://github.com/kgrzybek/modular-monolith-with-ddd](https://github.com/kgrzybek/modular-monolith-with-ddd)
 - [https://github.com/thangchung/clean-architecture-dotnet](https://github.com/thangchung/clean-architecture-dotnet)
 - [https://github.com/jasontaylordev/CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture)
+- [https://github.com/devmentors/Pacco](https://github.com/devmentors/Pacco)
