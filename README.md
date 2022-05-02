@@ -68,5 +68,10 @@ Our clean architecture in each service consists of 4 main parts:
 - **Application** - Here you should find the implementation of use cases related to the module. the application is responsible for requests processing. Application contains use cases, domain events, integration events and its contracts, internal commands.
 - **Domain** - Domain Model in Domain-Driven Design terms implements the applicable Bounded Context
 - **Infrastructure** - This is where the implementation of secondary adapters should be. Secondary adapters are responsible for communication with the external dependencies.
-infrastructural code responsible for module initialization, background processing, data access, communication with Events Bus and other external components or systems
+infrastructural code responsible for module initialization, background processing, data access, communication with Events Bus and other external components or systems.
 
+## Project Refrences 
+- [https://github.com/jbogard/ContosoUniversityDotNetCore-Pages](https://github.com/jbogard/ContosoUniversityDotNetCore-Pages)
+- [https://github.com/kgrzybek/modular-monolith-with-ddd](https://github.com/kgrzybek/modular-monolith-with-ddd)
+- [https://github.com/thangchung/clean-architecture-dotnet](https://github.com/thangchung/clean-architecture-dotnet)
+- [https://github.com/jasontaylordev/CleanArchitecture](https://github.com/jasontaylordev/CleanArchitecture)
